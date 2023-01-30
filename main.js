@@ -39,8 +39,13 @@ app.post('/api/openai', async(req, res) => {
             image_url
         })
     }catch(error){
-        console.log(error)
-        return res.status(200).json({
+        if (error.response) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+          } else {
+            console.log(error.message);
+          }
+        return res.status(403).json({
             succes: false,
             error: error.message
         })
